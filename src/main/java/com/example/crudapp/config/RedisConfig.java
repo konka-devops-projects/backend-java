@@ -47,14 +47,14 @@ public class RedisConfig {
             config.setPassword(redisPassword);
         }
 
-        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
-                .commandTimeout(Duration.ofSeconds(10))
-                .apply(builder -> {
-                    if (sslEnabled) {
-                        builder.useSsl().disablePeerVerification();
-                    }
-                })
-                .build();
+        LettuceClientConfiguration.LettuceClientConfigurationBuilder builder = LettuceClientConfiguration.builder()
+                .commandTimeout(Duration.ofSeconds(10));
+
+        if (sslEnabled) {
+            builder.useSsl().disablePeerVerification();
+        }
+
+        LettuceClientConfiguration clientConfig = builder.build();
 
         return new LettuceConnectionFactory(config, clientConfig);
     }
