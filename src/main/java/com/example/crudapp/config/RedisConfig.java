@@ -76,7 +76,7 @@ public class RedisConfig {
             logger.info("Successfully wrote to Redis: OK");
             logger.info("Successfully read from Redis: {}", result);
         } catch (Exception e) {
-            logger.error("Redis connection error: {}", e.getMessage());
+            logger.error("Redis connection error", e);
         }
 
         return template;
